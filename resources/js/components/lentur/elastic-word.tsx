@@ -72,6 +72,9 @@ export function ElasticWord({ word = 'lentur', className }: ElasticWordProps) {
                 1 + Math.abs(pullY) * 0.005 - Math.abs(pullX) * 0.0012;
             const skew = clamp(-pullX * 0.06, -14, 14);
 
+            // Huruf memanjang ke arah tarikan, menjauhi tetangganya, supaya tidak saling menimpa.
+            // Titik pangkal berganti saat tarikan ~0 (skala ~1), jadi tidak ada loncatan.
+            letter.style.transformOrigin = `${pullX >= 0 ? '0%' : '100%'} ${pullY <= 0 ? '100%' : '0%'}`;
             letter.style.transform =
                 `translate3d(${pullX.toFixed(2)}px, ${pullY.toFixed(2)}px, 0) ` +
                 `skewX(${skew.toFixed(2)}deg) ` +

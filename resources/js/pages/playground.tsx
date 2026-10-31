@@ -91,13 +91,13 @@ export default function Playground() {
                             <div className="rounded-blob bg-lentur-lime p-6 text-center">
                                 <ElasticWord
                                     word="Gerak dulu."
-                                    className="text-4xl sm:text-5xl"
+                                    className="text-3xl sm:text-5xl"
                                 />
                             </div>
                             <div className="rounded-blob bg-lentur-pink p-6 text-center">
                                 <ElasticWord
                                     word="Sempurna belakangan."
-                                    className="text-3xl sm:text-4xl"
+                                    className="text-2xl sm:text-4xl"
                                 />
                             </div>
                         </div>

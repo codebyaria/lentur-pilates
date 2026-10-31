@@ -158,7 +158,8 @@ export default function BookingFlow({
                     <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-start">
                         <section
                             key={step}
-                            className="animate-step-in"
+                            // min-w-0: tanpa ini kolom grid melebar mengikuti baris pilihan hari yang bisa digeser.
+                            className="min-w-0 animate-step-in"
                             aria-labelledby="step-title"
                         >
                             <p className="text-sm font-semibold text-lentur-ink/60">
@@ -343,7 +344,7 @@ export default function BookingFlow({
                             )}
                         </section>
 
-                        <div className="lg:sticky lg:top-6">
+                        <div className="min-w-0 lg:sticky lg:top-6">
                             <BookingSummary
                                 session={session}
                                 day={sessionDay}
