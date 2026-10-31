@@ -51,4 +51,5 @@ MAIL_MAILER=log
 - Aplikasi mempercayai header proxy (`trustProxies`) dan memaksa https di
   produksi (`URL::forceHttps`); keduanya wajib agar URL bertanda tangan
   (konfirmasi, batal, kalender) valid di balik tunnel.
+- `fakerphp/faker` ada di `require` (bukan `require-dev`): seeder dijalankan di server saat reset malam.
 - Akun admin demo sengaja publik (lihat README); semua perubahan hilang saat reset.
