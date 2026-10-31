@@ -115,7 +115,6 @@ export default function Landing({
                     <Pricing
                         packages={packages}
                         cancellationHours={cancellationHours}
-                        bookingUrl={urls.booking}
                     />
                     <NotHere />
                     <Instructors instructors={instructors} />

@@ -50,7 +50,10 @@ export function BringAFriend({
                         </p>
                     )}
                     <div className="mt-8 flex flex-wrap items-center gap-3">
-                        <a href={bookingUrl} className={pillClassName('lime')}>
+                        <a
+                            href={pairPackage?.bookingUrl ?? bookingUrl}
+                            className={pillClassName('lime')}
+                        >
                             {t('friend.cta')}
                         </a>
                         <button

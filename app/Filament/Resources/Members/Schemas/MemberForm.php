@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Members\Schemas;
 
+use App\Models\Member;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -27,6 +28,7 @@ class MemberForm
                             ->label('WhatsApp')
                             ->tel()
                             ->required()
+                            ->dehydrateStateUsing(fn (string $state) => Member::normalizeWhatsapp($state))
                             ->unique(ignoreRecord: true),
                         TextInput::make('email')
                             ->label('Email (opsional)')

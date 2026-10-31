@@ -6,31 +6,47 @@ use RuntimeException;
 
 /**
  * Booking ditolak karena aturan studio. Pesannya aman ditampilkan ke pengguna.
+ * `field` menunjuk bagian formulir booking yang perlu diperbaiki.
  */
 class BookingNotPossible extends RuntimeException
 {
-    public static function sessionNotBookable(): self
+    final public function __construct(string $message, public readonly string $field = 'class_session_id')
     {
-        return new self(__('Kelas ini sudah lewat atau dibatalkan.'));
+        parent::__construct($message);
     }
 
-    public static function sessionFull(): self
+    public static function sessionNotBookable(): static
     {
-        return new self(__('Kelas ini sudah ramai. Jam berikutnya masih lega.'));
+        return new static(__('Kelas ini sudah lewat atau dibatalkan.'));
     }
 
-    public static function alreadyBooked(): self
+    public static function sessionFull(): static
     {
-        return new self(__('Sudah terdaftar di kelas ini.'));
+        return new static(__('Kelas ini sudah ramai. Jam berikutnya masih lega.'));
     }
 
-    public static function noUsablePackage(): self
+    public static function alreadyBooked(): static
     {
-        return new self(__('Belum ada paket aktif dengan sisa kelas.'));
+        return new static(__('Sudah terdaftar di kelas ini.'));
     }
 
-    public static function notCancellable(): self
+    public static function noUsablePackage(): static
     {
-        return new self(__('Booking ini tidak bisa dibatalkan lagi.'));
+        return new static(__('Belum ada paket aktif dengan sisa kelas.'), 'package');
+    }
+
+    public static function introAlreadyUsed(): static
+    {
+        return new static(__('Kelas Pertama hanya untuk kunjungan pertama. Pilih paket lain, ya.'), 'package');
+    }
+
+    public static function packageUnavailable(): static
+    {
+        return new static(__('Paket ini sedang tidak dijual.'), 'package');
+    }
+
+    public static function notCancellable(): static
+    {
+        return new static(__('Booking ini tidak bisa dibatalkan lagi.'));
     }
 }

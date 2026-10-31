@@ -18,15 +18,7 @@ function chipClassName(active: boolean) {
     );
 }
 
-export function Schedule({
-    days,
-    sessions,
-    levels,
-    day,
-    level,
-    onDayChange,
-    onLevelChange,
-}: {
+type ScheduleBrowserProps = {
     days: ScheduleDay[];
     sessions: ScheduleSession[];
     levels: { value: Level; label: string }[];
@@ -34,15 +26,17 @@ export function Schedule({
     level: Level | null;
     onDayChange: (day: string) => void;
     onLevelChange: (level: Level | null) => void;
-}) {
-    const t = useTranslate();
+    /** Mode pilih (langkah 1 booking): kartu jadi tombol, bukan tautan. */
+    selection?: Selection;
+};
 
-    // Kelas penuh tetap tampil (dengan saran jam lain), hanya disaring per hari & level.
-    const visible = sessions.filter(
-        (session) =>
-            session.day === day && (level === null || session.level === level),
-    );
-    const levelLabel = levels.find((item) => item.value === level)?.label ?? '';
+type Selection = {
+    selectedId: number | null;
+    onSelect: (sessionId: number) => void;
+};
+
+export function Schedule(props: Omit<ScheduleBrowserProps, 'selection'>) {
+    const t = useTranslate();
 
     return (
         <section
@@ -56,87 +50,136 @@ export function Schedule({
                     eyebrow={t('schedule.eyebrow')}
                     title={t('schedule.title')}
                 />
-
-                <div
-                    className="-mx-4 mt-8 overflow-x-auto px-4 pb-2"
-                    role="tablist"
-                    aria-label={t('nav.schedule')}
-                >
-                    <div className="flex gap-2">
-                        {days.map((item) => {
-                            const count = sessions.filter(
-                                (session) =>
-                                    session.day === item.key &&
-                                    (level === null || session.level === level),
-                            ).length;
-
-                            return (
-                                <button
-                                    key={item.key}
-                                    type="button"
-                                    role="tab"
-                                    aria-selected={item.key === day}
-                                    onClick={() => onDayChange(item.key)}
-                                    className={cn(
-                                        chipClassName(item.key === day),
-                                        'flex-col gap-0 py-2 leading-tight',
-                                    )}
-                                >
-                                    <span>
-                                        {item.isToday
-                                            ? t('schedule.today')
-                                            : item.shortLabel}
-                                    </span>
-                                    <span className="text-xs font-normal opacity-75">
-                                        {item.date} · {count}
-                                    </span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
-
-                <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-2">
-                    <button
-                        type="button"
-                        onClick={() => onLevelChange(null)}
-                        className={chipClassName(level === null)}
-                        aria-pressed={level === null}
-                    >
-                        {t('schedule.allLevels')}
-                    </button>
-                    {levels.map((item) => (
-                        <button
-                            key={item.value}
-                            type="button"
-                            onClick={() => onLevelChange(item.value)}
-                            className={chipClassName(level === item.value)}
-                            aria-pressed={level === item.value}
-                        >
-                            {item.label}
-                        </button>
-                    ))}
-                </div>
-
-                <ul className="mt-8 grid gap-4" role="tabpanel">
-                    {visible.length === 0 && (
-                        <li className="rounded-blob bg-lentur-cream p-8 text-center text-lg text-lentur-ink/70">
-                            {level
-                                ? t('schedule.empty', { level: levelLabel })
-                                : t('schedule.emptyAll')}
-                        </li>
-                    )}
-                    {visible.map((session) => (
-                        <ScheduleCard key={session.id} session={session} />
-                    ))}
-                </ul>
+                <ScheduleBrowser {...props} className="mt-8" />
             </div>
         </section>
     );
 }
 
-function ScheduleCard({ session }: { session: ScheduleSession }) {
+/** Pilihan hari + level + daftar kelas. Dipakai di landing dan langkah 1 booking. */
+export function ScheduleBrowser({
+    days,
+    sessions,
+    levels,
+    day,
+    level,
+    onDayChange,
+    onLevelChange,
+    selection,
+    className,
+}: ScheduleBrowserProps & { className?: string }) {
     const t = useTranslate();
+
+    // Kelas penuh tetap tampil (dengan saran jam lain), hanya disaring per hari & level.
+    const visible = sessions.filter(
+        (session) =>
+            session.day === day && (level === null || session.level === level),
+    );
+    const levelLabel = levels.find((item) => item.value === level)?.label ?? '';
+    const bookableIds = new Set(
+        sessions
+            .filter((session) => !session.isFull)
+            .map((session) => session.id),
+    );
+
+    return (
+        <div className={className}>
+            <div
+                className="-mx-4 overflow-x-auto px-4 pb-2"
+                role="tablist"
+                aria-label={t('nav.schedule')}
+            >
+                <div className="flex gap-2">
+                    {days.map((item) => {
+                        const count = sessions.filter(
+                            (session) =>
+                                session.day === item.key &&
+                                (level === null || session.level === level),
+                        ).length;
+
+                        return (
+                            <button
+                                key={item.key}
+                                type="button"
+                                role="tab"
+                                aria-selected={item.key === day}
+                                onClick={() => onDayChange(item.key)}
+                                className={cn(
+                                    chipClassName(item.key === day),
+                                    'flex-col gap-0 py-2 leading-tight',
+                                )}
+                            >
+                                <span>
+                                    {item.isToday
+                                        ? t('schedule.today')
+                                        : item.shortLabel}
+                                </span>
+                                <span className="text-xs font-normal opacity-75">
+                                    {item.date} · {count}
+                                </span>
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
+            <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-2">
+                <button
+                    type="button"
+                    onClick={() => onLevelChange(null)}
+                    className={chipClassName(level === null)}
+                    aria-pressed={level === null}
+                >
+                    {t('schedule.allLevels')}
+                </button>
+                {levels.map((item) => (
+                    <button
+                        key={item.value}
+                        type="button"
+                        onClick={() => onLevelChange(item.value)}
+                        className={chipClassName(level === item.value)}
+                        aria-pressed={level === item.value}
+                    >
+                        {item.label}
+                    </button>
+                ))}
+            </div>
+
+            <ul className="mt-8 grid gap-4" role="tabpanel">
+                {visible.length === 0 && (
+                    <li className="rounded-blob bg-lentur-cream p-8 text-center text-lg text-lentur-ink/70">
+                        {level
+                            ? t('schedule.empty', { level: levelLabel })
+                            : t('schedule.emptyAll')}
+                    </li>
+                )}
+                {visible.map((session) => (
+                    <ScheduleCard
+                        key={session.id}
+                        session={session}
+                        selection={selection}
+                        canSelectAlternative={
+                            session.alternative !== null &&
+                            bookableIds.has(session.alternative.id)
+                        }
+                    />
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+function ScheduleCard({
+    session,
+    selection,
+    canSelectAlternative,
+}: {
+    session: ScheduleSession;
+    selection?: Selection;
+    canSelectAlternative: boolean;
+}) {
+    const t = useTranslate();
+    const isSelected = selection?.selectedId === session.id;
 
     return (
         <li
@@ -144,6 +187,7 @@ function ScheduleCard({ session }: { session: ScheduleSession }) {
                 'relative grid gap-4 overflow-hidden rounded-blob bg-white p-5 pl-7 ring-1 ring-lentur-ink/5 transition-elastic sm:grid-cols-[6rem_1fr_auto] sm:items-center sm:p-6 sm:pl-8',
                 !session.isFull &&
                     'hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-18px_rgba(31,42,68,0.45)]',
+                isSelected && 'ring-4 ring-lentur-blue',
             )}
         >
             <span
@@ -181,10 +225,29 @@ function ScheduleCard({ session }: { session: ScheduleSession }) {
                         <p className="font-semibold">
                             {t('schedule.fullMessage')}
                         </p>
-                        {session.alternative ? (
+                        {session.alternative &&
+                        selection &&
+                        canSelectAlternative ? (
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    session.alternative &&
+                                    selection.onSelect(session.alternative.id)
+                                }
+                                className="mt-2 inline-flex min-h-11 items-center gap-2 text-left font-semibold text-lentur-blue underline decoration-2 underline-offset-4 hover:decoration-lentur-pink"
+                            >
+                                {t('schedule.alternative', {
+                                    day: session.alternative.dayLabel,
+                                    time: session.alternative.time,
+                                    className: session.alternative.className,
+                                    count: session.alternative.spotsLeft,
+                                })}
+                                <span aria-hidden="true">→</span>
+                            </button>
+                        ) : session.alternative ? (
                             <a
                                 href={session.alternative.bookingUrl}
-                                className="mt-2 inline-flex min-h-11 items-center gap-2 font-semibold text-lentur-blue underline decoration-2 underline-offset-4 hover:decoration-lentur-pink"
+                                className="mt-2 inline-flex min-h-11 items-center gap-2 text-left font-semibold text-lentur-blue underline decoration-2 underline-offset-4 hover:decoration-lentur-pink"
                             >
                                 {t('schedule.alternative', {
                                     day: session.alternative.dayLabel,
@@ -224,13 +287,32 @@ function ScheduleCard({ session }: { session: ScheduleSession }) {
                                       count: session.spotsLeft,
                                   })}
                         </span>
-                        <a
-                            href={session.bookingUrl}
-                            className={pillClassName('primary', 'px-6 py-2.5')}
-                            aria-label={`${t('schedule.book')}: ${session.className} ${session.time}`}
-                        >
-                            {t('schedule.book')}
-                        </a>
+                        {selection ? (
+                            <button
+                                type="button"
+                                onClick={() => selection.onSelect(session.id)}
+                                aria-pressed={isSelected}
+                                className={pillClassName(
+                                    isSelected ? 'lime' : 'primary',
+                                    'px-6 py-2.5',
+                                )}
+                            >
+                                {isSelected
+                                    ? t('booking.selectedClass')
+                                    : t('booking.choose')}
+                            </button>
+                        ) : (
+                            <a
+                                href={session.bookingUrl}
+                                className={pillClassName(
+                                    'primary',
+                                    'px-6 py-2.5',
+                                )}
+                                aria-label={`${t('schedule.book')}: ${session.className} ${session.time}`}
+                            >
+                                {t('schedule.book')}
+                            </a>
+                        )}
                     </>
                 )}
             </div>

@@ -28,7 +28,7 @@ class BookingTable
         return TextColumn::make('member.nickname')
             ->label('Peserta')
             ->weight('semibold')
-            ->description(fn (Booking $record) => $record->member->whatsapp)
+            ->description(fn (Booking $record) => $record->member->formattedWhatsapp())
             ->searchable(['nickname', 'whatsapp']);
     }
 

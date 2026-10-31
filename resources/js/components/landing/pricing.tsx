@@ -5,11 +5,9 @@ import { Reveal, SectionHeading, pillClassName } from './ui';
 export function Pricing({
     packages,
     cancellationHours,
-    bookingUrl,
 }: {
     packages: SitePackage[];
     cancellationHours: number;
-    bookingUrl: string;
 }) {
     const t = useTranslate();
     const intro = packages.find((item) => item.isIntro);
@@ -49,7 +47,7 @@ export function Pricing({
                             </p>
                         </div>
                         <a
-                            href={bookingUrl}
+                            href={intro.bookingUrl}
                             className={pillClassName(
                                 'primary',
                                 'self-start lg:self-end',
@@ -85,7 +83,7 @@ export function Pricing({
                                 {item.summary}
                             </p>
                             <a
-                                href={bookingUrl}
+                                href={item.bookingUrl}
                                 className={pillClassName(
                                     'outline',
                                     'mt-6 self-start',

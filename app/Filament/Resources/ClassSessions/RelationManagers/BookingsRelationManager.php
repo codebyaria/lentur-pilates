@@ -76,13 +76,13 @@ class BookingsRelationManager extends RelationManager
                     ->getSearchResultsUsing(fn (string $search) => Member::query()
                         ->where(fn (Builder $query) => $query
                             ->where('nickname', 'like', "%{$search}%")
-                            ->orWhere('whatsapp', 'like', "%{$search}%"))
+                            ->orWhere('whatsapp', 'like', '%'.Member::normalizeWhatsapp($search).'%'))
                         ->whereDoesntHave('bookings', fn (Builder $query) => $query
                             ->where('class_session_id', $this->ownerRecord->id)
                             ->holdingSpot())
                         ->limit(20)
                         ->get()
-                        ->mapWithKeys(fn (Member $member) => [$member->id => "{$member->nickname} · {$member->whatsapp}"]))
+                        ->mapWithKeys(fn (Member $member) => [$member->id => "{$member->nickname} · {$member->formattedWhatsapp()}"]))
                     ->getOptionLabelUsing(fn ($value) => Member::query()->whereKey($value)->value('nickname'))
                     ->required(),
             ])

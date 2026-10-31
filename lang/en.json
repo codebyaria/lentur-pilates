@@ -15,5 +15,19 @@
     "Kelas ini sudah ramai. Jam berikutnya masih lega.": "This class is busy. The next slot still has room.",
     "Sudah terdaftar di kelas ini.": "Already booked into this class.",
     "Belum ada paket aktif dengan sisa kelas.": "No active package with classes left yet.",
-    "Booking ini tidak bisa dibatalkan lagi.": "This booking can no longer be cancelled."
+    "Booking ini tidak bisa dibatalkan lagi.": "This booking can no longer be cancelled.",
+    "Kelas Pertama hanya untuk kunjungan pertama. Pilih paket lain, ya.": "The First Class pack is for first visits only. Please pick another pack.",
+    "Paket ini sedang tidak dijual.": "This pack is not available right now.",
+    "Nomor WhatsApp-nya kurang pas. Contoh: 0812 3456 7890.": "That WhatsApp number does not look right. Example: 0812 3456 7890.",
+    "Pilih jadwal dulu, ya.": "Pick a time first.",
+    "Jadwal ini tidak ditemukan. Pilih yang lain, ya.": "We could not find that class. Please pick another one.",
+    "Pilih paket dulu, ya.": "Pick a pack first.",
+    "Boleh tahu nama panggilanmu?": "What should we call you?",
+    "Nama panggilannya kepanjangan. Yang singkat saja.": "That nickname is a bit long. Keep it short.",
+    "Nomor WhatsApp dibutuhkan untuk mengabari jadwal.": "We need a WhatsApp number to let you know about your class.",
+    "Pertama kali pilates atau sudah pernah?": "First time doing pilates, or have you tried it?",
+    "Catatannya maksimal 500 karakter.": "Notes can be up to 500 characters.",
+    "Bersama :name.": "With :name.",
+    "Kode booking: :code": "Booking code: :code",
+    "Bawa air minum, tinggalkan rasa sungkan.": "Bring water, leave the awkwardness at home."
 }

@@ -64,6 +64,7 @@ export type SitePackage = {
     validityDays: number;
     isIntro: boolean;
     isShareable: boolean;
+    bookingUrl: string;
 };
 
 export type SiteInstructor = {
@@ -91,4 +92,40 @@ export type LandingProps = {
     instructors: SiteInstructor[];
     studio: { name: string; address: string };
     urls: SiteUrls;
+};
+
+export type BookingFlowProps = {
+    days: ScheduleDay[];
+    schedule: ScheduleSession[];
+    levels: { value: Level; label: string }[];
+    packages: SitePackage[];
+    existingPackageChoice: string;
+    cancellationHours: number;
+    initial: { sessionId: number | null; package: string | null };
+    urls: { home: string; submit: string; alternate: string };
+};
+
+export type BookingForm = {
+    class_session_id: number | null;
+    package: string;
+    nickname: string;
+    whatsapp: string;
+    is_new_to_pilates: boolean | null;
+    injury_notes: string;
+};
+
+export type ConfirmedBooking = {
+    code: string;
+    nickname: string;
+    className: string;
+    dayLabel: string;
+    dateLabel: string;
+    time: string;
+    endTime: string;
+    instructor: string;
+    room: string;
+    isFirstClass: boolean;
+    packageName: string | null;
+    classesRemaining: number | null;
+    cancelDeadline: string;
 };

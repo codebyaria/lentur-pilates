@@ -22,6 +22,7 @@ class MemberInfolist
                             ->label('Nama panggilan')
                             ->weight('bold'),
                         TextEntry::make('whatsapp')
+                            ->formatStateUsing(fn (Member $record) => $record->formattedWhatsapp())
                             ->label('WhatsApp')
                             ->copyable(),
                         IconEntry::make('is_new_to_pilates')

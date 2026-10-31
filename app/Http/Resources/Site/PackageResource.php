@@ -27,6 +27,7 @@ class PackageResource extends JsonResource
             'validityDays' => $this->validity_days,
             'isIntro' => $this->is_intro,
             'isShareable' => $this->is_shareable,
+            'bookingUrl' => SiteUrls::booking(query: ['paket' => $this->slug]),
         ];
     }
 }

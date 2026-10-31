@@ -86,20 +86,6 @@ class LandingTest extends TestCase
             ->where('schedule.0.bookingUrl', fn (string $url) => str_starts_with($url, route('booking.en'))));
     }
 
-    public function test_booking_placeholder_shows_the_chosen_class()
-    {
-        $session = ClassSession::factory()->create();
-
-        $this->get('/booking?jadwal='.$session->id)->assertInertia(fn (Assert $page) => $page
-            ->component('booking/coming-soon')
-            ->where('session.id', $session->id)
-            ->where('urls.home', route('home')));
-
-        $this->get('/en/booking?jadwal=bukan-angka')->assertInertia(fn (Assert $page) => $page
-            ->where('locale', 'en')
-            ->where('session', null));
-    }
-
     public function test_inactive_instructors_and_packages_are_hidden()
     {
         Instructor::factory()->create(['name' => 'Tersembunyi', 'is_active' => false]);

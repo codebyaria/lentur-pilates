@@ -22,7 +22,7 @@ class MembersTable
                 TextColumn::make('nickname')
                     ->label('Nama panggilan')
                     ->weight('semibold')
-                    ->description(fn (Member $record) => $record->whatsapp)
+                    ->description(fn (Member $record) => $record->formattedWhatsapp())
                     ->searchable(['nickname', 'whatsapp'])
                     ->sortable(),
                 TextColumn::make('flags')
