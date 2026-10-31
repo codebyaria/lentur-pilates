@@ -47,6 +47,7 @@ Bahasa: Indonesia (default) + English (/en).
 ## Catatan teknis
 
 - Jalankan: `composer run dev` (server Laravel + Vite) → http://localhost:8000
+- Demo live: https://lentur.arizain.my.id, rilis dengan `scripts/deploy.sh` (lihat `DEPLOY.md`; server sama dengan arizain.my.id & Alon Cake, port 8082). Data direset tiap malam 03.00 WIB (`APP_DEMO=true`)
 - Reset data: `php artisan migrate:fresh --seed` (akun admin ada di `database/seeders/DatabaseSeeder.php`)
 - Akses admin Filament dibatasi kolom `users.is_admin`. Tidak ada login/daftar publik: `User` hanya untuk admin, peserta = `Member` tanpa akun (bawaan auth starter kit sudah dihapus)
 - Design tokens: `resources/css/app.css` (`@theme`, kelas `bg-lentur-*`, `font-display`)
