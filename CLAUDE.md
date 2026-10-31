@@ -48,7 +48,7 @@ Bahasa: Indonesia (default) + English (/en).
 
 - Jalankan: `composer run dev` (server Laravel + Vite) → http://localhost:8000
 - Reset data: `php artisan migrate:fresh --seed` (akun admin ada di `database/seeders/DatabaseSeeder.php`)
-- Akses admin Filament dibatasi kolom `users.is_admin`
+- Akses admin Filament dibatasi kolom `users.is_admin`. Tidak ada login/daftar publik: `User` hanya untuk admin, peserta = `Member` tanpa akun (bawaan auth starter kit sudah dihapus)
 - Design tokens: `resources/css/app.css` (`@theme`, kelas `bg-lentur-*`, `font-display`)
 - Gerak: `resources/js/lib/motion.ts` — semua animasi pegas lewat sini, selalu cek `prefersReducedMotion()`
 - Komponen merek: `resources/js/components/lentur/` — pratinjau di `/playground`

@@ -40,10 +40,6 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             // Lazy: rute situs publik baru menetapkan bahasa setelah middleware ini.
             'locale' => fn () => app()->getLocale(),
-            'auth' => [
-                'user' => $request->user(),
-            ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
 }

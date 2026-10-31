@@ -27,9 +27,3 @@ Route::middleware(SetSiteLocale::class)->group(function () {
 });
 
 Route::inertia('playground', 'playground')->name('playground');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
-});
-
-require __DIR__.'/settings.php';
