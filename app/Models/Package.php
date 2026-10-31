@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasEnglishCopy;
 use Carbon\CarbonImmutable;
 use Database\Factories\PackageFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -15,8 +16,10 @@ use Illuminate\Support\Number;
 /**
  * @property int $id
  * @property string $name
+ * @property string|null $name_en
  * @property string $slug
  * @property string $summary
+ * @property string|null $summary_en
  * @property int $class_count
  * @property int $price
  * @property int $validity_days
@@ -27,11 +30,11 @@ use Illuminate\Support\Number;
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
  */
-#[Fillable(['name', 'slug', 'summary', 'class_count', 'price', 'validity_days', 'is_intro', 'is_shareable', 'is_active', 'sort'])]
+#[Fillable(['name', 'name_en', 'slug', 'summary', 'summary_en', 'class_count', 'price', 'validity_days', 'is_intro', 'is_shareable', 'is_active', 'sort'])]
 class Package extends Model
 {
     /** @use HasFactory<PackageFactory> */
-    use HasFactory;
+    use HasEnglishCopy, HasFactory;
 
     /**
      * @return HasMany<Membership, $this>

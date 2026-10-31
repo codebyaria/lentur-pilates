@@ -137,12 +137,15 @@ type BodyFiguresProps = {
     stretchOnScroll?: boolean;
     /** Regangan manual (0–1). Bila diisi, regangan scroll diabaikan. */
     stretch?: number;
+    /** Deskripsi untuk pembaca layar. */
+    label?: string;
 };
 
 export function BodyFigures({
     className,
     stretchOnScroll = true,
     stretch,
+    label = 'Enam orang dengan bentuk tubuh berbeda sedang bergerak bersama',
 }: BodyFiguresProps) {
     const reducedMotion = useReducedMotion();
     const figureRefs = useRef<(SVGGElement | null)[]>([]);
@@ -252,7 +255,7 @@ export function BodyFigures({
         <svg
             viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
             role="img"
-            aria-label="Enam orang dengan bentuk tubuh berbeda sedang bergerak bersama"
+            aria-label={label}
             className={cn('h-auto w-full overflow-visible', className)}
         >
             <rect
@@ -529,5 +532,37 @@ function WheelchairFigure({ figure }: { figure: Figure }) {
             />
             <Head cy={bodyTop - headR - 4} figure={figure} />
         </>
+    );
+}
+
+/**
+ * Satu tubuh saja, mis. avatar instruktur. `index` mengikuti urutan FIGURES
+ * (sama dengan pilihan "Ilustrasi avatar" di admin).
+ */
+export function BodyFigure({
+    index,
+    className,
+    title,
+}: {
+    index: number;
+    className?: string;
+    title?: string;
+}) {
+    const figure = FIGURES[index % FIGURES.length];
+
+    return (
+        <svg
+            viewBox="-110 -290 220 300"
+            role={title ? 'img' : undefined}
+            aria-label={title}
+            aria-hidden={title ? undefined : true}
+            className={cn('h-auto w-full overflow-visible', className)}
+        >
+            {figure.pose === 'wheelchair' ? (
+                <WheelchairFigure figure={figure} />
+            ) : (
+                <StandingFigure figure={figure} />
+            )}
+        </svg>
     );
 }

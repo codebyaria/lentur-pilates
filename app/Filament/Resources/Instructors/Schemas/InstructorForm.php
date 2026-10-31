@@ -69,6 +69,23 @@ class InstructorForm
                             ->label('Aktif mengajar')
                             ->default(true),
                     ]),
+                Section::make('English (/en)')
+                    ->description('Opsional. Kosong = situs /en memakai teks Indonesia.')
+                    ->collapsible()
+                    ->collapsed()
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('tagline_en')
+                            ->label('Tagline')
+                            ->columnSpanFull(),
+                        Textarea::make('bio_en')
+                            ->label('Short story')
+                            ->rows(3)
+                            ->columnSpanFull(),
+                        TagsInput::make('specialties_en')
+                            ->label('Specialties'),
+                    ]),
             ]);
     }
 }

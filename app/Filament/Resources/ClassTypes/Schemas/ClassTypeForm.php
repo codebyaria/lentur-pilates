@@ -72,6 +72,22 @@ class ClassTypeForm
                             ->label('Kelas pertama')
                             ->helperText('Selalu tampil paling atas di booking.'),
                     ]),
+                Section::make('English (/en)')
+                    ->description('Opsional. Kosong = situs /en memakai teks Indonesia.')
+                    ->collapsible()
+                    ->collapsed()
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('name_en')
+                            ->label('Name'),
+                        TextInput::make('summary_en')
+                            ->label('Summary'),
+                        Textarea::make('description_en')
+                            ->label('Description')
+                            ->rows(3)
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 }

@@ -59,3 +59,5 @@ Bahasa: Indonesia (default) + English (/en).
 - Logika booking di `app/Actions` (`BookClass`, `CancelBooking`, `CancelClassSession`, `PurchasePackage`); pesan penolakan = `BookingNotPossible`. Admin dan alur booking publik wajib lewat sini
 - Admin Filament: `Jadwal mingguan` (halaman kustom, `resources/views/filament/pages/weekly-schedule.blade.php`), jadwal + peserta, member + paket, instruktur, jenis kelas. Kolom/aksi peserta bersama di `app/Filament/Support/BookingTable.php`
 - Tema admin: `resources/css/filament/admin/theme.css`; warna primer shade 600 = #2F5BE8 persis (lihat `AdminPanelProvider`)
+- Situs publik: `/` (id) dan `/en` lewat middleware `SetSiteLocale`; data dari `LandingController` + `app/Http/Resources/Site`. Copy UI di `resources/js/lib/i18n.ts` (id = sumber, en wajib punya kunci sama); isi database pakai kolom `*_en` + `localized()` (kosong = jatuh ke Indonesia)
+- Landing: `resources/js/pages/landing.tsx`, bagian-bagiannya di `resources/js/components/landing/`. `/booking` masih halaman sementara (`booking/coming-soon`) sampai alur 4 langkah dibuat

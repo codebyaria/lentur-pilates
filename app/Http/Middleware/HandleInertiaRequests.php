@@ -38,6 +38,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
+            // Lazy: rute situs publik baru menetapkan bahasa setelah middleware ini.
+            'locale' => fn () => app()->getLocale(),
             'auth' => [
                 'user' => $request->user(),
             ],

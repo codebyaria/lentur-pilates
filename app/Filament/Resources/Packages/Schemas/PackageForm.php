@@ -64,6 +64,18 @@ class PackageForm
                             ->label('Dijual')
                             ->default(true),
                     ]),
+                Section::make('English (/en)')
+                    ->description('Opsional. Kosong = situs /en memakai teks Indonesia.')
+                    ->collapsible()
+                    ->collapsed()
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->schema([
+                        TextInput::make('name_en')
+                            ->label('Name'),
+                        TextInput::make('summary_en')
+                            ->label('Summary'),
+                    ]),
             ]);
     }
 }

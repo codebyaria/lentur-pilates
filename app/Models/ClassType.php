@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ClassKind;
 use App\Enums\ClassLevel;
+use App\Models\Concerns\HasEnglishCopy;
 use Carbon\CarbonImmutable;
 use Database\Factories\ClassTypeFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -18,11 +19,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property int $id
  * @property string $name
+ * @property string|null $name_en
  * @property string $slug
  * @property ClassKind $kind
  * @property ClassLevel $level
  * @property string $summary
+ * @property string|null $summary_en
  * @property string $description
+ * @property string|null $description_en
  * @property int $duration_minutes
  * @property int $capacity
  * @property bool $is_intro
@@ -31,11 +35,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
  */
-#[Fillable(['name', 'slug', 'kind', 'level', 'summary', 'description', 'duration_minutes', 'capacity', 'is_intro', 'color', 'sort'])]
+#[Fillable(['name', 'name_en', 'slug', 'kind', 'level', 'summary', 'summary_en', 'description', 'description_en', 'duration_minutes', 'capacity', 'is_intro', 'color', 'sort'])]
 class ClassType extends Model
 {
     /** @use HasFactory<ClassTypeFactory> */
-    use HasFactory;
+    use HasEnglishCopy, HasFactory;
 
     /**
      * @return HasMany<ClassSession, $this>
