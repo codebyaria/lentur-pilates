@@ -18,6 +18,7 @@ export default function BookingConfirmed({
     urls: {
         home: string;
         calendar: string;
+        cancel: string;
         googleCalendar: string;
         shareClass: string;
         bookAnother: string;
@@ -123,6 +124,12 @@ export default function BookingConfirmed({
                                     deadline: booking.cancelDeadline,
                                 })}
                             </p>
+                            <a
+                                href={urls.cancel}
+                                className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-lentur-ink/70 underline underline-offset-4 hover:text-lentur-ink"
+                            >
+                                {t('confirmed.cancelLink')}
+                            </a>
                         </div>
 
                         <div className="grid gap-5">

@@ -36,6 +36,14 @@ class SiteUrls
         return URL::signedRoute(self::name('booking.confirmed', $locale), ['booking' => $booking->code]);
     }
 
+    /**
+     * Halaman batal milik peserta (GET untuk melihat, POST ke URL yang sama untuk membatalkan).
+     */
+    public static function cancel(Booking $booking, ?string $locale = null): string
+    {
+        return URL::signedRoute(self::name('booking.cancel', $locale), ['booking' => $booking->code]);
+    }
+
     public static function calendar(Booking $booking, ?string $locale = null): string
     {
         return URL::signedRoute(self::name('booking.calendar', $locale), ['booking' => $booking->code]);

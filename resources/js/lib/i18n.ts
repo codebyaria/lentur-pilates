@@ -182,6 +182,29 @@ const id = {
     'confirmed.copied': 'Tautan tersalin. Kirim ke temanmu!',
     'confirmed.home': 'Kembali ke beranda',
     'confirmed.bookAnother': 'Pesan kelas lain',
+    'confirmed.cancelLink': 'Berhalangan? Batalkan booking',
+
+    'cancel.metaTitle': 'Batalkan booking',
+    'cancel.title': 'Berhalangan, {name}?',
+    'cancel.lead':
+        'Tidak apa-apa. Kabari lewat sini supaya tempatnya bisa dipakai teman lain.',
+    'cancel.free':
+        'Masih sebelum batas batal gratis ({deadline}). Kelasnya kembali ke paketmu.',
+    'cancel.late':
+        'Sudah lewat batas batal gratis ({deadline}). Kelasnya tetap terhitung, tapi tempatnya kami buka untuk orang lain. Terima kasih sudah mengabari.',
+    'cancel.confirm': 'Ya, batalkan',
+    'cancel.keep': 'Tidak jadi, tetap datang',
+    'cancel.cancelling': 'Sebentar…',
+    'cancel.doneTitle': 'Booking dibatalkan.',
+    'cancel.doneRefunded':
+        'Kelasnya sudah kembali ke paketmu. Sampai ketemu lain waktu!',
+    'cancel.doneCounted':
+        'Kelasnya tetap terhitung, tapi tempatmu sudah dibuka untuk orang lain. Sampai ketemu lain waktu!',
+    'cancel.alreadyCancelled': 'Booking ini sudah dibatalkan sebelumnya.',
+    'cancel.notCancellable':
+        'Kelas ini sudah mulai atau sudah lewat, jadi tidak bisa dibatalkan lagi.',
+    'cancel.remaining': 'Sisa paket {name}: {count} kelas.',
+    'cancel.bookAnother': 'Pilih jadwal lain',
 } as const;
 
 type MessageKey = keyof typeof id;
@@ -363,6 +386,29 @@ const en: Record<MessageKey, string> = {
     'confirmed.copied': 'Link copied. Send it to your friend!',
     'confirmed.home': 'Back to home',
     'confirmed.bookAnother': 'Book another class',
+    'confirmed.cancelLink': 'Can’t make it? Cancel this booking',
+
+    'cancel.metaTitle': 'Cancel booking',
+    'cancel.title': 'Can’t make it, {name}?',
+    'cancel.lead':
+        'No worries. Let us know here so a friend can take the spot.',
+    'cancel.free':
+        'You are still before the free cancellation deadline ({deadline}). The class goes back to your pack.',
+    'cancel.late':
+        'The free cancellation deadline has passed ({deadline}). The class still counts, but we will open your spot for someone else. Thanks for letting us know.',
+    'cancel.confirm': 'Yes, cancel',
+    'cancel.keep': 'Never mind, I’m coming',
+    'cancel.cancelling': 'One moment…',
+    'cancel.doneTitle': 'Booking cancelled.',
+    'cancel.doneRefunded':
+        'The class is back in your pack. See you another time!',
+    'cancel.doneCounted':
+        'The class still counts, but your spot is open for someone else now. See you another time!',
+    'cancel.alreadyCancelled': 'This booking was already cancelled.',
+    'cancel.notCancellable':
+        'This class has started or already passed, so it can no longer be cancelled.',
+    'cancel.remaining': '{name} left: {count} classes.',
+    'cancel.bookAnother': 'Pick another time',
 };
 
 const messages = { id, en } satisfies Record<

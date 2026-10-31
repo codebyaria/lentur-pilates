@@ -102,6 +102,7 @@ class BookingController extends Controller
             'urls' => [
                 'home' => SiteUrls::home(),
                 'calendar' => SiteUrls::calendar($booking),
+                'cancel' => SiteUrls::cancel($booking),
                 'googleCalendar' => BookingCalendar::googleUrl($booking),
                 'shareClass' => SiteUrls::booking($session->id),
                 'bookAnother' => SiteUrls::booking(),
