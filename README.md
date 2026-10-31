@@ -6,6 +6,8 @@ Demo konsep untuk studio pilates (mat & reformer) dengan kelas kecil dan booking
 
 **Semua data, nama, dan harga fiktif. Pembayaran disimulasikan; tidak ada integrasi pembayaran atau WhatsApp.**
 
+**Demo:** https://lentur.arizain.my.id (English: [/en](https://lentur.arizain.my.id/en)). Data diulang setiap malam pukul 03.00 WIB.
+
 ## Apa yang ada di sini
 
 - **Landing** (`/`, English di `/en`): hero dengan kata "lentur" yang bisa ditarik lalu memantul, ilustrasi tubuh beragam yang meregang saat scroll, "Kamu yang mana?", jadwal 7 hari ke depan, harga jelas + aturan batal, instruktur, dan "Ajak teman".
@@ -28,7 +30,7 @@ php artisan migrate:fresh --seed
 composer run dev
 ```
 
-Buka http://localhost:8000. Admin ada di http://localhost:8000/admin; akun demo-nya tertulis di `database/seeders/DatabaseSeeder.php`.
+Buka http://localhost:8000. Admin ada di http://localhost:8000/admin dengan akun demo `admin@lentur.test` / `lentur-demo` (sama di demo live).
 
 Jadwal demo dibuat relatif terhadap hari seeder dijalankan (minggu ini + minggu depan), jadi jalankan ulang `php artisan migrate:fresh --seed` kalau jadwalnya sudah lewat.
 
@@ -51,4 +53,4 @@ Menjalankan lint & format frontend, TypeScript, Pint, Larastan (level 7), dan se
 | Admin                                               | `app/Filament`                               |
 | Data demo                                           | `database/seeders`                           |
 
-Panduan merek, nada copy, dan catatan teknis lengkap ada di [`CLAUDE.md`](CLAUDE.md).
+Panduan merek, nada copy, dan catatan teknis lengkap ada di [`CLAUDE.md`](CLAUDE.md); cara rilis di [`DEPLOY.md`](DEPLOY.md).
