@@ -7,8 +7,6 @@ import { usePage } from '@inertiajs/react';
  */
 const id = {
     'meta.title': 'Lentur Pilates · Gerak dulu. Sempurna belakangan.',
-    'meta.description':
-        'Studio pilates mat & reformer dengan kelas kecil di Jakarta Selatan. Untuk semua bentuk tubuh. Booking online, batal gratis sampai {hours} jam sebelum kelas.',
 
     'nav.schedule': 'Jadwal',
     'nav.pricing': 'Harga',
@@ -211,8 +209,6 @@ type MessageKey = keyof typeof id;
 
 const en: Record<MessageKey, string> = {
     'meta.title': 'Lentur Pilates · Move first. Perfect later.',
-    'meta.description':
-        'Small-group mat & reformer pilates in South Jakarta. For every body. Book online, cancel free up to {hours} hours before class.',
 
     'nav.schedule': 'Schedule',
     'nav.pricing': 'Pricing',

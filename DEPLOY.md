@@ -53,3 +53,14 @@ MAIL_MAILER=log
   (konfirmasi, batal, kalender) valid di balik tunnel.
 - `fakerphp/faker` ada di `require` (bukan `require-dev`): seeder dijalankan di server saat reset malam.
 - Akun admin demo sengaja publik (lihat README); semua perubahan hilang saat reset.
+
+## Gambar pratinjau tautan & ikon
+
+- `public/images/og/lentur-{id,en}.png` (1200×630) adalah screenshot halaman
+  `/_og` dan `/en/_og` (`resources/js/pages/og/card.tsx`). Halaman itu hanya
+  ada di lokal; di produksi 404. Render ulang dengan Chrome headless setelah
+  copy atau desain berubah, lalu commit gambarnya.
+- Tag Open Graph dirender server di `resources/views/app.blade.php` (crawler
+  tidak menjalankan JS), mengikuti bahasa aktif.
+- Ikon: `public/favicon.svg` (sumber), `favicon.ico`, `apple-touch-icon.png`.
+

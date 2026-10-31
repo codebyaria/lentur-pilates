@@ -5,9 +5,12 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LandingController;
 use App\Http\Middleware\SetSiteLocale;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::middleware(SetSiteLocale::class)->group(function () {
     Route::get('/', LandingController::class)->name('home');
+    // Sumber gambar pratinjau tautan; hanya untuk dirender lokal (lihat DEPLOY.md).
+    Route::get('/_og', fn () => app()->isProduction() ? abort(404) : Inertia::render('og/card'))->name('og');
     Route::get('/booking', [BookingController::class, 'create'])->name('booking');
     Route::post('/booking', [BookingController::class, 'store'])->middleware('throttle:10,1')->name('booking.store');
     Route::get('/booking/selesai/{booking:code}', [BookingController::class, 'confirmed'])->middleware('signed')->name('booking.confirmed');
@@ -17,6 +20,7 @@ Route::middleware(SetSiteLocale::class)->group(function () {
 
     Route::prefix('en')->group(function () {
         Route::get('/', LandingController::class)->name('home.en')->defaults('locale', 'en');
+        Route::get('/_og', fn () => app()->isProduction() ? abort(404) : Inertia::render('og/card'))->name('og.en')->defaults('locale', 'en');
         Route::get('/booking', [BookingController::class, 'create'])->name('booking.en')->defaults('locale', 'en');
         Route::post('/booking', [BookingController::class, 'store'])->middleware('throttle:10,1')->name('booking.store.en')->defaults('locale', 'en');
         Route::get('/booking/done/{booking:code}', [BookingController::class, 'confirmed'])->middleware('signed')->name('booking.confirmed.en')->defaults('locale', 'en');

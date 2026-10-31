@@ -70,13 +70,6 @@ export default function Landing({
     return (
         <>
             <Head title={t('meta.title')}>
-                <meta
-                    head-key="description"
-                    name="description"
-                    content={t('meta.description', {
-                        hours: cancellationHours,
-                    })}
-                />
                 <link
                     head-key="alternate-current"
                     rel="alternate"
