@@ -10,5 +10,10 @@
     "Tidak datang": "No-show",
     "Menunggu": "Pending",
     "Lunas": "Paid",
-    "Dikembalikan": "Refunded"
+    "Dikembalikan": "Refunded",
+    "Kelas ini sudah lewat atau dibatalkan.": "This class has already passed or was cancelled.",
+    "Kelas ini sudah ramai. Jam berikutnya masih lega.": "This class is busy. The next slot still has room.",
+    "Sudah terdaftar di kelas ini.": "Already booked into this class.",
+    "Belum ada paket aktif dengan sisa kelas.": "No active package with classes left yet.",
+    "Booking ini tidak bisa dibatalkan lagi.": "This booking can no longer be cancelled."
 }

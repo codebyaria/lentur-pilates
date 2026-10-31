@@ -1,0 +1,37 @@
+@import url('https://fonts.bunny.net/css?family=bricolage-grotesque:700,800&display=swap');
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* Lentur: dasar putih hangat, judul Bricolage Grotesque. */
+:root:not(.dark) .fi-body {
+    background-color: #fff8ee;
+}
+
+.lentur-display,
+.fi-header-heading,
+.fi-simple-header-heading,
+.fi-logo {
+    font-family: 'Bricolage Grotesque', var(--font-family), sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.lentur-stat {
+    @apply flex flex-col gap-0.5 rounded-3xl bg-white p-4 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10;
+}
+
+.lentur-stat-label {
+    @apply text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400;
+}
+
+.lentur-stat-value {
+    @apply text-3xl text-gray-950 dark:text-white;
+    font-family: 'Bricolage Grotesque', var(--font-family), sans-serif;
+    font-weight: 800;
+}
+
+.lentur-stat-hint {
+    @apply text-xs text-gray-500 dark:text-gray-400;
+}

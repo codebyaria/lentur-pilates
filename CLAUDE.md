@@ -56,3 +56,6 @@ Bahasa: Indonesia (default) + English (/en).
 - Aturan batal gratis: `config/lentur.php` (`free_cancellation_hours`) → `Booking::canCancelForFree()`
 - Kelas penuh → `ClassSession::nextAvailableAlternative()` (jenis kelas sama didahulukan, level sama, 7 hari ke depan)
 - Tanggal = `CarbonImmutable`, zona waktu Asia/Jakarta. Teks UI ditulis dalam bahasa Indonesia; terjemahan Inggris di `lang/en.json`
+- Logika booking di `app/Actions` (`BookClass`, `CancelBooking`, `CancelClassSession`, `PurchasePackage`); pesan penolakan = `BookingNotPossible`. Admin dan alur booking publik wajib lewat sini
+- Admin Filament: `Jadwal mingguan` (halaman kustom, `resources/views/filament/pages/weekly-schedule.blade.php`), jadwal + peserta, member + paket, instruktur, jenis kelas. Kolom/aksi peserta bersama di `app/Filament/Support/BookingTable.php`
+- Tema admin: `resources/css/filament/admin/theme.css`; warna primer shade 600 = #2F5BE8 persis (lihat `AdminPanelProvider`)

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Peserta yang booking. Tidak butuh akun: cukup nama panggilan + WhatsApp.
@@ -37,6 +38,22 @@ class Member extends Model
     public function memberships(): HasMany
     {
         return $this->hasMany(Membership::class);
+    }
+
+    /**
+     * Paket yang sedang dipakai (sama dengan usableMembership), bisa di-eager-load.
+     *
+     * @return HasOne<Membership, $this>
+     */
+    public function currentMembership(): HasOne
+    {
+        return $this->hasOne(Membership::class)->ofMany(
+            ['expires_at' => 'min', 'id' => 'min'],
+            fn ($query) => $query
+                ->where('payment_status', PaymentStatus::Paid)
+                ->where('classes_remaining', '>', 0)
+                ->where('expires_at', '>', now()),
+        );
     }
 
     /**

@@ -37,6 +37,17 @@ class ClassSession extends Model
     /** @use HasFactory<ClassSessionFactory> */
     use HasFactory;
 
+    protected static function booted(): void
+    {
+        // Jam selesai selalu mengikuti durasi jenis kelas.
+        static::saving(function (ClassSession $session) {
+            if ($session->isDirty(['starts_at', 'class_type_id'])) {
+                $duration = ClassType::query()->whereKey($session->class_type_id)->value('duration_minutes') ?? 50;
+                $session->ends_at = $session->starts_at->copy()->addMinutes((int) $duration);
+            }
+        });
+    }
+
     /**
      * @return BelongsTo<ClassType, $this>
      */
@@ -159,12 +170,20 @@ class ClassSession extends Model
     #[Scope]
     protected function inWeekOf(Builder $query, ?CarbonInterface $date = null): void
     {
-        $date ??= now();
+        $query->whereBetween('starts_at', self::weekRange($date ?? now()))->orderBy('starts_at');
+    }
 
-        $query->whereBetween('starts_at', [
+    /**
+     * Senin 00:00 sampai Minggu 23:59 dari minggu tanggal tersebut.
+     *
+     * @return array{CarbonInterface, CarbonInterface}
+     */
+    public static function weekRange(CarbonInterface $date): array
+    {
+        return [
             $date->copy()->startOfWeek(CarbonInterface::MONDAY),
             $date->copy()->endOfWeek(CarbonInterface::SUNDAY),
-        ])->orderBy('starts_at');
+        ];
     }
 
     /**
