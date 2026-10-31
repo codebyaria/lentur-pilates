@@ -63,4 +63,3 @@ MAIL_MAILER=log
 - Tag Open Graph dirender server di `resources/views/app.blade.php` (crawler
   tidak menjalankan JS), mengikuti bahasa aktif.
 - Ikon: `public/favicon.svg` (sumber), `favicon.ico`, `apple-touch-icon.png`.
-
